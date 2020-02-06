@@ -1,0 +1,8 @@
+GUI (Graphic User Interface)
+Java ofrece los siguientes paquetes para GUI:
+    *AWT (java.awt Abstract Window Toolkit)
+    *Swing (javax.swing)
+    *JavaFX (javafx)
+
+
+Hacer un programa para registrar nombres de personas en un arreglo de cadenas, debe solicitar la cantidad de items a guardar.
