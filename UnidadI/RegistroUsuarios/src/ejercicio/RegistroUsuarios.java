@@ -44,7 +44,7 @@ public class RegistroUsuarios {
 			System.out.println("¿Cuantas personas quiere registrar?");
 			cantidadPersonas = entrada.nextInt();
 		} while (cantidadPersonas>10);
-		entrada.nextLine(); //Solucionar bug de nextline
+		entrada.nextLine(); //Solucionar error de nextline
 		personas = new String[cantidadPersonas];
 		
 		System.out.println("¿Que método quiere usar para capturar informacion?\n"
