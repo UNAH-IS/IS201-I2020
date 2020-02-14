@@ -6,3 +6,37 @@ Java ofrece los siguientes paquetes para GUI:
 
 
 Hacer un programa para registrar nombres de personas en un arreglo de cadenas, debe solicitar la cantidad de items a guardar.
+
+
+
+Programación Orientada a Objetos
+Pilares de la POO:
+*Abstracción: Es la funcionalidad que permite crear funcionalidades o modulos que sean utilizados por terceros y que dichas funcionalidades sean utilizadas e implementadas sin necesidad de saber como estan estructuradas o como funcionan internamente. Es decir nos abstraemos de la funcionalidad y solo la usamos.
+La abstracción se logra  definiendo los atributos y metodos de una clase.
+
+*Encapsulación: Funcionalidad que permite proteger los atributos internos de la clase para evitar modificanes involuntarias.
+Tecnicamente se logra utilizando modificadores de acceso, especificamente private y para acceder o inicializar el atributo privado se utiliza metodos publicos más conocidos como sets y gets
+
+    Modificadores de acceso:
+    -default: Este no se escribe, permite que el atributo/metodo sea visible fuera de la clase siempre y cuando sea dentro del mismo paquete
+    -public: Permite que un atributo/metodo sea visible desde cualquier clase en cualquier paquete
+    -private: Los atributos/metodos con este modificador, solo pueden ser accedidos dentro de la misma clase. Este modificador es el que se utiliza para aplicar Encapsulación
+
+*Herencia
+*Polimorfismo
+
+
+
+Constructor: Es un método especial que se utiliza para inicializar atributos internos de la clase o inicializar otros componentes.
+
+Caracteristicas:
+*Es el primer metodo al ejecutarse cuando se crea una instancia.
+*Debe llevar el mismo nombre de la clase
+*Debe ser public
+*No tiene tipo de dato de retorno (inclusive void)
+*Si no se crea uno, Java crea uno vacío por defecto.
+*Se puede sobrecargar 
+
+
+Sobrecarga de metodos:
+Funcionalidad que permite definir metodos con el mismo nombre pero con diferente cantidad o tipos de parametros.
