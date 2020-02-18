@@ -15,6 +15,7 @@ public class Principal {
 			solicitarInformacion(i); //0
 		
 		mostrarInformacion();
+		
 	}
 	
 	public void solicitarInformacion(int i) {
@@ -29,7 +30,7 @@ public class Principal {
 	
 	public void mostrarInformacion() {
 		for(int i=0; i<usuarios.length; i++)
-			System.out.println(usuarios[i]);
+			System.out.println(usuarios[i].toString());
 	}
 	
 	public static void main(String[] args) {

@@ -40,3 +40,15 @@ Caracteristicas:
 
 Sobrecarga de metodos:
 Funcionalidad que permite definir metodos con el mismo nombre pero con diferente cantidad o tipos de parametros.
+
+
+Colecciones
+Las Colecciones en Java son clases que nos permiten gestionar dinamicamente multiples objetos para constrarestar las desventajas del uso de arreglos convencionales.
+
+    ArrayList
+    HashMap
+    HashTable
+    List
+    LinkedList
+    ObservableList
+    ....
