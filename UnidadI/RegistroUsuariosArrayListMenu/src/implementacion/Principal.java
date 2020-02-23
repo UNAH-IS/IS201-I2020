@@ -4,21 +4,26 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import clases.Carrera;
 import clases.Usuario;
 // Create Read Update Delete (CRUD)
 public class Principal {
 	int opcion=0;
 	ArrayList<Usuario> usuarios;
+	ArrayList<Carrera> carreras;
 	
 	public Principal() {
 		usuarios = new ArrayList<Usuario>();
-		
+		carreras = new ArrayList<Carrera>();
 		do{
 			opcion = Integer.parseInt(JOptionPane.showInputDialog(
 					"1. Agregar \n"
 					+ "2. Actualizar\n"
 					+ "3. Eliminar\n"
 					+ "4. Mostrar Informacion\n"
+					+ "-------------------\n"
+					+ "5. Agregar Carrera\n"
+					+ "6. Mostrar Carreras\n"
 					+ "0. Salir"
 			));
 			switch(opcion) {
@@ -32,7 +37,13 @@ public class Principal {
 				eliminarUsuario();
 				break;
 			case 4:
-				mostrarInformacion();
+				mostrarUsuarios();
+				break;
+			case 5:
+				agregarCarrera();
+				break;
+			case 6:
+				mostrarCarreras();
 				break;
 			case 0:
 				System.out.println("Adios");
@@ -52,6 +63,10 @@ public class Principal {
 		usuario.setUsuario(JOptionPane.showInputDialog("Usuario:"));
 		usuario.setEdad(Integer.parseInt(JOptionPane.showInputDialog("Edad:")));
 		usuario.setGenero(JOptionPane.showInputDialog("Genero:"));
+		
+		//Preguntar al usuario a que carrera pertenece, de la lista de carreras
+		int indiceCarrera = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el indice de la carrera a la que pertenece"));
+		usuario.setCarrera(carreras.get(indiceCarrera));
 		usuarios.add(usuario);
 	}
 	
@@ -78,11 +93,28 @@ public class Principal {
 		JOptionPane.showMessageDialog(null, "Usuario eliminado");
 	}
 	
-	public void mostrarInformacion() {
+	public void mostrarUsuarios() {
 		System.out.println("Mostrar");
 		String registros="";
 		for(int i=0; i<usuarios.size();i++)
 			registros += usuarios.get(i).toString() + "\n";
+		
+		JOptionPane.showMessageDialog(null, registros);
+	}
+	
+	public void agregarCarrera() {
+		Carrera carrera = new Carrera();
+		carrera.setCodigoCarrera(Integer.parseInt(JOptionPane.showInputDialog("Codigo Carrera:")));
+		carrera.setNombreCarrera(JOptionPane.showInputDialog("Nombre Carrera:"));
+		carrera.setCantidadAsignaturas(Integer.parseInt(JOptionPane.showInputDialog("Cantidad Asignaturas:")));
+		carreras.add(carrera);
+	}
+	
+	public void mostrarCarreras() {
+		System.out.println("Mostrar");
+		String registros="";
+		for(int i=0; i<carreras.size();i++)
+			registros += carreras.get(i).toString() + "\n";
 		
 		JOptionPane.showMessageDialog(null, registros);
 	}

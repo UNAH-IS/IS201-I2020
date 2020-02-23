@@ -6,15 +6,17 @@ public class Usuario {
 	private String usuario;
 	private int edad;
 	private String genero;
+	private Carrera carrera; //Composición
 	
-	public Usuario(String identidad, String nombre, String usuario, int edad, String genero) {
+	public Usuario(String identidad, String nombre, String usuario, int edad, String genero, Carrera carrera) {
 		this.identidad = identidad;
 		this.nombre = nombre;
 		this.usuario = usuario;
 		this.edad = edad;
 		this.genero = genero;
+		this.setCarrera(carrera);
 	}
-	
+
 	public Usuario() {}
 
 	public String getIdentidad() {
@@ -57,8 +59,19 @@ public class Usuario {
 		this.genero = genero;
 	}
 
+	
+
+	@Override
 	public String toString() {
 		return "Usuario [identidad=" + identidad + ", nombre=" + nombre + ", usuario=" + usuario + ", edad=" + edad
-				+ ", genero=" + genero + "]";
+				+ ", genero=" + genero + ", carrera=" + carrera + "]";
+	}
+
+	public Carrera getCarrera() {
+		return carrera;
+	}
+
+	public void setCarrera(Carrera carrera) {
+		this.carrera = carrera;
 	}
 }
