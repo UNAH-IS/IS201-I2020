@@ -52,3 +52,8 @@ Las Colecciones en Java son clases que nos permiten gestionar dinamicamente mult
     LinkedList
     ObservableList
     ....
+
+
+static: Es un modificador que se le asigna a un metodo o a un atributo para que sea visible fuera de clase sin necesidad de crear una instancia. Ademas, este atributo mantiene el mismo valor para cualquier instancia.
+Para acceder a un elemento estatico se hace de la siguiente manera:
+    NombreClase.elementoEstatico;
