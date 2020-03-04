@@ -2,16 +2,16 @@ package clases;
 
 import java.util.Arrays;
 
-public class Persona {
+public abstract class Persona{
 	protected String identidad;
 	protected String nombre;
 	protected String apellido;
-	private int edad;
-	private String fechaNacimiento;
-	private Carrera carrera;
-	private String clases[];
-	private String centroRegional;
-	private String genero;
+	protected int edad;
+	protected String fechaNacimiento;
+	protected Carrera carrera;
+	protected String clases[];
+	protected String centroRegional;
+	protected String genero;
 	
 	public Persona(String identidad, String nombre, String apellido, int edad, String fechaNacimiento, Carrera carrera,
 			String[] clases, String centroRegional, String genero) {
@@ -25,6 +25,8 @@ public class Persona {
 		this.centroRegional = centroRegional;
 		this.genero = genero;
 	}
+	
+	public Persona() {}
 	
 
 	
@@ -109,7 +111,10 @@ public class Persona {
 				+ "]";
 	}
 
-	public void aprobar() {}
-	public void reprobar() {}
-	public void matricular() {}
+	public void aprobar() {
+		System.out.println("Aprobando a la persona " + nombre + " " + apellido);
+	}
+
+	public abstract void reprobar();
+	public abstract void matricular();
 }

@@ -1,0 +1,30 @@
+Pilares de la Programacion Orientada a Objetos
+Abstracción.
+Encapsulacion.
+Herencia: 
+    Funcionalidad de la POO que pemite reutilizar codigo. Tecnicamente se aplica herencia identificando atributos en comun de un grupo de clases bajo un mismo contexto. Se define una nueva clase que encapsule los atributos en comun y se le asigna un nombre descriptivo para el grupo de clases. A esta nueva clase se le conoce como clase padre, super clase o clase base, y las clases que HEREDAN de esta nueva clase se les conoce como clases hijas, sub clases o clases derivadas
+
+    Para aplicar herencia se utiliza la palabra reservada extends:
+        ClaseHija extends ClasePadre
+    
+    No se puede tener multiples clases padre. Se puede simular utilizando interfaces.
+
+    Sobreescritura: Escribir nuevamente en una clase hija un metodo que estaba definido previamente en una clase padre. La funcionalidad de este metodo sobreescrito puede ser completamente diferente.
+    Se suele agregar la anotación @Override para indicar que un metodo esta sobreescrito.
+
+
+    Clases abstractas:
+    Son clases genericas, usualmente son clases padre, suelen generalizar un grupo de clases.
+    Tienen las siguientes caracteristicas:
+    1. Se agrega el modificador abstract antes de la palabra class para indicar de que es una clase abstracta.
+    2. Una clase abstracta no se puede instanciar.
+    3. A pesar de que no se puede instanciar, si puede tener constructores.
+    4. Es posible agregar el modificador abstract a los metodos.
+    5. Si existe un metodo abstracto, la clase debe ser abstracta.
+    6. Una clase puede ser abstracta sin tener metodos abstractos.
+    7. Un metodo abstracto no tiene cuerpo, solo se define.
+    8. Un metodo abstracto debe sobreescribirse obligatoriamente en clases hijas.
+    
+
+
+Polimorfismo.
