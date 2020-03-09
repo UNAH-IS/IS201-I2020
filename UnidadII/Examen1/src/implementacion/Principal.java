@@ -40,10 +40,10 @@ public class Principal {
 				agregarMensajeGrupo();
 				break;
 			case 5:
-				mostrarUsuarios();
+				JOptionPane.showMessageDialog(null, mostrarUsuarios());
 				break;
 			case 6:
-				mostrarGrupos();
+				JOptionPane.showMessageDialog(null, mostrarGrupos());
 				break;
 			case 7:
 				System.out.println("Bais");
@@ -58,21 +58,47 @@ public class Principal {
 	
 	public void agregarUsuario(){
 	    System.out.println("Accion: agregarUsuario");
+	    Usuario usuario = new Usuario();
+	    usuario.setNombre(JOptionPane.showInputDialog("Nombre:"));
+	    usuario.setApellido(JOptionPane.showInputDialog("Apellido:"));
+	    usuario.setCorreo(JOptionPane.showInputDialog("Correo:"));
+	    usuario.setEdad(Integer.parseInt(JOptionPane.showInputDialog("Edad:")));
+	    usuarios.add(usuario);
 	}
 	public void agregarGrupo(){
 	    System.out.println("Accion: agregarGrupo");
+	    Grupo grupo = new Grupo();
+	    grupo.setNombreGrupo(JOptionPane.showInputDialog("Nombre Grupo"));
+	    grupo.setFechaCreacion(JOptionPane.showInputDialog("Fecha de creación"));
+	    grupos.add(grupo);
 	}
 	public void agregarUsuarioGrupo(){
 	    System.out.println("Accion: agregarUsuarioGrupo");
+	    int indiceGrupoSeleccionado = Integer.parseInt(JOptionPane.showInputDialog("¿A que grupo desea agregar usuarios?\n" + mostrarGrupos()));
+	    int indiceUsuarioSeleccionado = Integer.parseInt(JOptionPane.showInputDialog("¿Que usuario desea agregar al grupo "+indiceGrupoSeleccionado+"?\n" + mostrarUsuarios() ));
+	    Grupo grupoSeleccionado = grupos.get(indiceGrupoSeleccionado);
+	    Usuario usuarioSeleccionado = usuarios.get(indiceUsuarioSeleccionado);
+	    grupoSeleccionado.getUsuariosGrupo().add(usuarioSeleccionado);
+	    
 	}
 	public void agregarMensajeGrupo(){
 	    System.out.println("Accion: agregarMensajeGrupo");
 	}
-	public void mostrarUsuarios(){
+	public String mostrarUsuarios(){
 	    System.out.println("Accion: mostrarUsuarios");
+	    String resultado = "";
+	    for(int i=0; i<usuarios.size();i++)
+	    	resultado+= i + " " +usuarios.get(i) + "\n";
+	    	
+	    return resultado;
 	}
-	public void mostrarGrupos(){
+	public String mostrarGrupos(){
 	    System.out.println("Accion: mostrarGrupos");
+	    String resultado = "";
+	    for(int i=0; i<grupos.size();i++)
+	    	resultado+= i + " " + grupos.get(i)  + "\n";
+	    	
+	    return resultado;
 	}
 	
 	public static void main(String[] args) {

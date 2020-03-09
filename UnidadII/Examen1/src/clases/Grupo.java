@@ -14,9 +14,14 @@ public class Grupo {
 		this.fechaCreacion = fechaCreacion;
 		this.usuariosGrupo = usuariosGrupo;
 		this.mensajes = mensajes;
+		this.usuariosGrupo = new ArrayList<Usuario>();
+		this.mensajes = new ArrayList<Mensaje>();
 	}
 	
-	public Grupo() {}
+	public Grupo() {
+		this.usuariosGrupo = new ArrayList<Usuario>();
+		this.mensajes = new ArrayList<Mensaje>();
+	}
 
 	public void setNombreGrupo(String nombreGrupo) {
 		this.nombreGrupo = nombreGrupo;
