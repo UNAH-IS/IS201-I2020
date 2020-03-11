@@ -28,3 +28,36 @@ Herencia:
 
 
 Polimorfismo.
+
+
+
+
+Interfaces Gráficas de Usuario (GUI)
+Paquetes disponibles en Java:
+    AWT
+    Swing (javax.swing)
+    JavaFX (javafx)
+            Java > 7 
+                En java 7 las librerias estaban por aparte.
+                En java 8 Las incluyeron en el JDK
+                En java 11, JavaFX se hizo open source, nuevamente no viene en el JDK
+
+
+Pasos para trabajar con JavaFX y eclipse
+
+*Instalar el JDK
+*Instalar eclipse
+*Descargar librerias de JavaFX
+*Descomprimir el archivo en alguna carpeta fija
+*Crear un nuevo proyecto en eclipse
+*Seleccionar el proyecto, luego en *Project->Properties->JavaBuildPath->Libraries->ModulePath->Add External Jars
+*Buscar la carpeta de las librerias de JavaFX y *seleccionar todos los archivos .jar
+*Aplicar y Cerrar
+*Seleccionar el proyecto
+*Menu Run->Run Configurations->Arguments
+*Agregar lo siguiente en la casilla de VM  Arguments:
+    --module-path "RUTA" --add-modules=javafx.controls
+    --module-path "/Users/erick.marin/Others/javafx-sdk-11.0.2/lib" --add-modules=javafx.controls
+*Apply
+
+

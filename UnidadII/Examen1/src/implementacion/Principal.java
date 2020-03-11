@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import clases.Grupo;
+import clases.Mensaje;
 import clases.Usuario;
 
 public class Principal {
@@ -78,11 +79,17 @@ public class Principal {
 	    int indiceUsuarioSeleccionado = Integer.parseInt(JOptionPane.showInputDialog("¿Que usuario desea agregar al grupo "+indiceGrupoSeleccionado+"?\n" + mostrarUsuarios() ));
 	    Grupo grupoSeleccionado = grupos.get(indiceGrupoSeleccionado);
 	    Usuario usuarioSeleccionado = usuarios.get(indiceUsuarioSeleccionado);
-	    grupoSeleccionado.getUsuariosGrupo().add(usuarioSeleccionado);
-	    
+	    grupoSeleccionado.getUsuariosGrupo().add(usuarioSeleccionado);  
 	}
 	public void agregarMensajeGrupo(){
 	    System.out.println("Accion: agregarMensajeGrupo");
+	    int indiceGrupoSeleccionado = Integer.parseInt(JOptionPane.showInputDialog("¿A que grupo desea agregar el mensaje?\n" + mostrarGrupos()));
+	    int indiceUsuarioSeleccionado = Integer.parseInt(JOptionPane.showInputDialog("¿Que usuario es el dueño del mensaje a agregar en el grupo "+indiceGrupoSeleccionado+"?\n" + mostrarUsuarios() ));
+	    Mensaje mensaje = new Mensaje(); 
+	    mensaje.setUsuario(usuarios.get(indiceUsuarioSeleccionado));
+	    mensaje.setTextoMensaje(JOptionPane.showInputDialog("Mensaje:"));
+	    mensaje.setHora(JOptionPane.showInputDialog("Hora:"));
+	    grupos.get(indiceGrupoSeleccionado).getMensajes().add(mensaje);
 	}
 	public String mostrarUsuarios(){
 	    System.out.println("Accion: mostrarUsuarios");
