@@ -1,8 +1,11 @@
 package implementacion;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import clases.Fondo;
 import clases.Jugador;
+import clases.Tile;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -19,14 +22,29 @@ public class Juego extends Application{
 	private Group root;
 	private Scene escena;
 	private Canvas lienzo;
-	private int x = 0;
 	private Jugador jugador;
+	private Fondo fondo;
 	public static boolean arriba;
 	public static boolean abajo;
 	public static boolean izquierda;
 	public static boolean derecha;
 	public static HashMap<String, Image> imagenes;
+		
+	//private Tile tile;
+	private ArrayList<Tile> tiles;
 
+	private int tilemap[][] = {
+			{1,1,1,1,1,1,1,1,1,1},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,5,5,5,5,10,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{0,0,0,0,0,0,0,0,0,0}
+	};
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -49,7 +67,7 @@ public class Juego extends Application{
 			@Override
 			public void handle(long tiempoActual) {
 				double t = (tiempoActual - tiempoInicial) / 1000000000.0;
-				System.out.println(t);
+				//System.out.println(t);
 				actualizarEstado();
 				pintar();
 			}
@@ -61,12 +79,16 @@ public class Juego extends Application{
 	
 	public void actualizarEstado() {
 		jugador.mover();
+		fondo.mover();
 	}
 	
 	public void inicializarComponentes() {
 		imagenes = new HashMap<String,Image>();
 		cargarImagenes();
-		jugador = new Jugador(20, 40, 3, "goku");
+		jugador = new Jugador(20, 40, "goku", 3, 0);
+		fondo = new Fondo(0,0,"background","background2",5);
+		inicializarTiles();
+		//tile = new Tile(0,0,"tilemap", 0, 420, 490, 70, 70);
 		root = new Group();
 		escena = new Scene(root, 700, 500);
 		lienzo = new Canvas(700, 500);
@@ -74,13 +96,32 @@ public class Juego extends Application{
 		graficos = lienzo.getGraphicsContext2D();
 	}
 	
+	public void inicializarTiles() {
+		tiles = new ArrayList<Tile>();
+		for(int i=0;i<tilemap.length;i++) {
+			for(int j=0;j<tilemap[i].length;j++) {
+				if (tilemap[i][j]!=0)
+					this.tiles.add(new Tile(tilemap[i][j],j*70,i*70,"tilemap",0,70,70));
+				
+			}
+			
+		}
+		
+	}
 	public void cargarImagenes() {
 		imagenes.put("goku", new Image("goku.png"));
+		imagenes.put("goku-furioso", new Image("goku-furioso.png"));
+		imagenes.put("background",new Image("background.jpg"));
+		imagenes.put("background2",new Image("background2.jpg"));
+		imagenes.put("tilemap",new Image("tilemap.png"));
 	}
 	
 	public void pintar() {
 		//graficos.fillRect(0,0,100,100);
-		graficos.drawImage(new Image("background.jpg"), 0, 0);
+		fondo.pintar(graficos);
+		//tile.pintar(graficos);
+		for(int i=0;i<tiles.size();i++)
+			tiles.get(i).pintar(graficos);
 		jugador.pintar(graficos);
 	}
 	
@@ -103,9 +144,10 @@ public class Juego extends Application{
 						break;
 					case "DOWN":
 						abajo = true;
+						break;
 					case "SPACE":
 						jugador.setVelocidad(15);
-						jugador.setNombreImagen("goku-furioso.png");
+						jugador.setNombreImagen("goku-furioso");
 						break;
 				}
 			}
@@ -128,9 +170,11 @@ public class Juego extends Application{
 						break;
 					case "DOWN":
 						abajo = false;
+						break;
 					case "SPACE":
 						jugador.setVelocidad(5);
-						jugador.setNombreImagen("goku.png");
+						jugador.setNombreImagen("goku");
+						break;
 				}
 			}
 			
