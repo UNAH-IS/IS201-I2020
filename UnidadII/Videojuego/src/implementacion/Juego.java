@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import clases.Fondo;
 import clases.Jugador;
+import clases.JugadorAnimado;
 import clases.Tile;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -22,7 +23,8 @@ public class Juego extends Application{
 	private Group root;
 	private Scene escena;
 	private Canvas lienzo;
-	private Jugador jugador;
+	//private Jugador jugador;
+	private JugadorAnimado jugadorAnimado;
 	private Fondo fondo;
 	public static boolean arriba;
 	public static boolean abajo;
@@ -34,10 +36,10 @@ public class Juego extends Application{
 	private ArrayList<Tile> tiles;
 
 	private int tilemap[][] = {
-			{1,1,1,1,1,1,1,1,1,1},
 			{0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,5,5,5,5,10,0,0},
+			{0,0,0,0,0,0,0,0,0,0},
+			{5,5,5,5,5,5,5,5,5,5},
 			{0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0},
@@ -68,7 +70,7 @@ public class Juego extends Application{
 			public void handle(long tiempoActual) {
 				double t = (tiempoActual - tiempoInicial) / 1000000000.0;
 				//System.out.println(t);
-				actualizarEstado();
+				actualizarEstado(t);
 				pintar();
 			}
 			
@@ -77,15 +79,18 @@ public class Juego extends Application{
 		animationTimer.start();//Empieza el ciclo de juego
 	}
 	
-	public void actualizarEstado() {
-		jugador.mover();
+	public void actualizarEstado(double t) {
+		//jugador.mover();
+		jugadorAnimado.calcularFrame(t);
+		jugadorAnimado.mover();
 		fondo.mover();
 	}
 	
 	public void inicializarComponentes() {
 		imagenes = new HashMap<String,Image>();
 		cargarImagenes();
-		jugador = new Jugador(20, 40, "goku", 3, 0);
+		//jugador = new Jugador(20, 40, "goku", 3, 0);
+		jugadorAnimado = new JugadorAnimado(20, 150, "megaman", 3, 0,"descanso");
 		fondo = new Fondo(0,0,"background","background2",5);
 		inicializarTiles();
 		//tile = new Tile(0,0,"tilemap", 0, 420, 490, 70, 70);
@@ -114,6 +119,7 @@ public class Juego extends Application{
 		imagenes.put("background",new Image("background.jpg"));
 		imagenes.put("background2",new Image("background2.jpg"));
 		imagenes.put("tilemap",new Image("tilemap.png"));
+		imagenes.put("megaman", new Image("megaman.png"));
 	}
 	
 	public void pintar() {
@@ -122,7 +128,8 @@ public class Juego extends Application{
 		//tile.pintar(graficos);
 		for(int i=0;i<tiles.size();i++)
 			tiles.get(i).pintar(graficos);
-		jugador.pintar(graficos);
+		//jugador.pintar(graficos);
+		jugadorAnimado.pintar(graficos);
 	}
 	
 	public void gestionEventos() {
@@ -135,9 +142,13 @@ public class Juego extends Application{
 				switch(evento.getCode().toString()) {
 					case "RIGHT":
 						derecha = true;
+						jugadorAnimado.setDireccion(1);
+						jugadorAnimado.setAnimacionActual("correr");
 						break;
 					case "LEFT":
 						izquierda = true;
+						jugadorAnimado.setDireccion(-1);
+						jugadorAnimado.setAnimacionActual("correr");
 						break;
 					case "UP":
 						arriba = true;
@@ -146,8 +157,8 @@ public class Juego extends Application{
 						abajo = true;
 						break;
 					case "SPACE":
-						jugador.setVelocidad(15);
-						jugador.setNombreImagen("goku-furioso");
+						//jugador.setVelocidad(15);
+						jugadorAnimado.setVelocidad(15);
 						break;
 				}
 			}
@@ -161,9 +172,11 @@ public class Juego extends Application{
 					switch(evento.getCode().toString()) {
 					case "RIGHT":
 						derecha = false;
+						jugadorAnimado.setAnimacionActual("descanso");
 						break;
 					case "LEFT":
 						izquierda = false;
+						jugadorAnimado.setAnimacionActual("descanso");
 						break;
 					case "UP":
 						arriba = false;
@@ -172,8 +185,7 @@ public class Juego extends Application{
 						abajo = false;
 						break;
 					case "SPACE":
-						jugador.setVelocidad(5);
-						jugador.setNombreImagen("goku");
+						jugadorAnimado.setVelocidad(5);
 						break;
 				}
 			}

@@ -30,12 +30,12 @@ public class Tile extends ObjetoJuego{
 				this.yImagen=210;
 				break;
 			case 5:
-				this.xImagen=490;
-				this.yImagen=560;
+				this.xImagen=491;
+				this.yImagen=558;
 				break;
 			case 10:
-				this.xImagen=560;
-				this.yImagen=560;
+				this.xImagen=561;
+				this.yImagen=558;
 				break;
 		}
 	}
