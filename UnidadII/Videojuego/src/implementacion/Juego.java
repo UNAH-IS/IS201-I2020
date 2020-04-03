@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import clases.Fondo;
-import clases.Jugador;
+import clases.Item;
 import clases.JugadorAnimado;
 import clases.Tile;
 import javafx.animation.AnimationTimer;
@@ -31,6 +31,10 @@ public class Juego extends Application{
 	public static boolean izquierda;
 	public static boolean derecha;
 	public static HashMap<String, Image> imagenes;
+	
+	private Item item;
+	private Item item1;
+	private Item item2;
 		
 	//private Tile tile;
 	private ArrayList<Tile> tiles;
@@ -40,12 +44,12 @@ public class Juego extends Application{
 			{0,0,0,0,0,0,0,0,0,0},
 			{0,0,0,0,0,0,0,0,0,0},
 			{5,5,5,5,5,5,5,5,5,5},
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0},
-			{0,0,0,0,0,0,0,0,0,0}
+			{20,20,20,20,20,20,20,20,20,20},
+			{20,20,20,20,20,20,20,20,20,20},
+			{20,20,20,20,20,20,20,20,20,20},
+			{20,20,20,20,20,20,20,20,20,20},
+			{20,20,20,20,20,20,20,20,20,20},
+			{20,20,20,20,20,20,20,20,20,20}
 	};
 	public static void main(String[] args) {
 		launch(args);
@@ -81,6 +85,9 @@ public class Juego extends Application{
 	
 	public void actualizarEstado(double t) {
 		//jugador.mover();
+		jugadorAnimado.verificarColisionesItem(item);
+		jugadorAnimado.verificarColisionesItem(item1);
+		jugadorAnimado.verificarColisionesItem(item2);
 		jugadorAnimado.calcularFrame(t);
 		jugadorAnimado.mover();
 		fondo.mover();
@@ -93,6 +100,10 @@ public class Juego extends Application{
 		jugadorAnimado = new JugadorAnimado(20, 150, "megaman", 3, 0,"descanso");
 		fondo = new Fondo(0,0,"background","background2",5);
 		inicializarTiles();
+		item = new Item(200,180, "item",0, 1);
+		item1 = new Item(250,180, "item",0, 1);
+		item2 = new Item(300,180, "item",0, 1);
+		
 		//tile = new Tile(0,0,"tilemap", 0, 420, 490, 70, 70);
 		root = new Group();
 		escena = new Scene(root, 700, 500);
@@ -120,6 +131,7 @@ public class Juego extends Application{
 		imagenes.put("background2",new Image("background2.jpg"));
 		imagenes.put("tilemap",new Image("tilemap.png"));
 		imagenes.put("megaman", new Image("megaman.png"));
+		imagenes.put("item", new Image("item.png"));
 	}
 	
 	public void pintar() {
@@ -130,6 +142,10 @@ public class Juego extends Application{
 			tiles.get(i).pintar(graficos);
 		//jugador.pintar(graficos);
 		jugadorAnimado.pintar(graficos);
+		item.pintar(graficos);
+		item1.pintar(graficos);
+		item2.pintar(graficos);
+		graficos.fillText("Vidas: " + jugadorAnimado.getVidas(), 20, 20);
 	}
 	
 	public void gestionEventos() {

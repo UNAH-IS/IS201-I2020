@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import implementacion.Juego;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class JugadorAnimado extends ObjetoJuego{
@@ -77,10 +78,15 @@ public class JugadorAnimado extends ObjetoJuego{
 		this.altoImagen = (int)coordenadas.getWidth();
 		this.anchoImagen = (int)coordenadas.getHeight();		
 	}
+	public Rectangle obtenerRectangulo() {
+		return new Rectangle(x, y, (direccion*anchoImagen) - 10, altoImagen);
+	}
 	//Se ejecuta por cada iteracion del ciclo de juego
 	@Override
 	public void pintar(GraphicsContext graficos) {
-		graficos.drawImage(Juego.imagenes.get(nombreImagen),xImagen,yImagen,anchoImagen,altoImagen, x, y, direccion*anchoImagen, altoImagen);//xImage, yImagen, anchoFragmento, altoFragmento, xPintar, yPintar, anchoPintar, altoPintar
+		graficos.drawImage(Juego.imagenes.get(nombreImagen),xImagen,yImagen,anchoImagen,altoImagen, x + (direccion==-1?anchoImagen:0), y, direccion*anchoImagen, altoImagen);//xImage, yImagen, anchoFragmento, altoFragmento, xPintar, yPintar, anchoPintar, altoPintar
+		//graficos.setStroke(Color.RED);
+		//graficos.strokeRect(x, y, anchoImagen - 10, altoImagen);
 	}
 	
 	//Se ejecuta por cada iteracion del ciclo de juego
@@ -108,5 +114,13 @@ public class JugadorAnimado extends ObjetoJuego{
 
 	public void setAnimacionActual(String animacionActual) {
 		this.animacionActual = animacionActual;
+	}
+	
+	public void verificarColisionesItem(Item item) {
+		if (!item.isCapturado() && this.obtenerRectangulo().getBoundsInLocal().intersects(item.obtenerRectangulo().getBoundsInLocal())) {
+			this.vidas += item.getCantidadVidas();
+			item.setCapturado(true);
+		}
+			//System.out.println("Estan colisionando");
 	}
 }
