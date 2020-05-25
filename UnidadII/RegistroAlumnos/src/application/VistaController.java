@@ -1,5 +1,11 @@
 package application;
 
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -48,6 +54,10 @@ public class VistaController implements Initializable{
 	@FXML private Button btnEliminar;
 	
 	private ArrayList<String> errores;
+	private final String NOMBRE_ARCHIVO = "alumnos.data";
+	//private ObjectInputStream flujoEntrada;
+
+	
 	public VistaController() {
 		//En el constructor aún no existen los componentes del UI
 		errores = new ArrayList<String>();
@@ -56,8 +66,23 @@ public class VistaController implements Initializable{
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		//Metodo que se ejecuta cuando se instanciaron todos los componentes del FXML
+		
 		carreras = FXCollections.observableArrayList();
 		alumnos = FXCollections.observableArrayList();
+		
+		//Lectura del archivo
+		try {
+			ObjectInputStream flujoEntrada = new ObjectInputStream(new FileInputStream(NOMBRE_ARCHIVO));
+			while(true) {
+				alumnos.add((Alumno)flujoEntrada.readObject());
+			}
+		} catch (EOFException e) {
+			System.out.println("Fin de archivo");
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		} 
+		
+		
 		
 		carreras.add(new Carrera(115, "Ing en Sistemas", 50));
 		carreras.add(new Carrera(116, "Ing Quimica", 55));
@@ -124,22 +149,36 @@ public class VistaController implements Initializable{
 			mensaje.show();
 			return;
 		}
-		alumnos.add(
-			new Alumno(
-				txtIdentidad.getText(),
-				txtNombre.getText(),
-				txtApellido.getText(),
-				Integer.parseInt(txtEdad.getText()),
-				dpFechaNacimiento.getValue().toString(),
-				cboCarreras.getSelectionModel().getSelectedItem(),
-				null,
-				txtCentroRegional.getText(),
-				((RadioButton)genero.getSelectedToggle()).getText(),
-				txtCuenta.getText(),
-				Double.parseDouble(txtPromedio.getText())
-			)
+		
+		Alumno alumno = new Alumno(
+			txtIdentidad.getText(),
+			txtNombre.getText(),
+			txtApellido.getText(),
+			Integer.parseInt(txtEdad.getText()),
+			dpFechaNacimiento.getValue().toString(),
+			cboCarreras.getSelectionModel().getSelectedItem(),
+			null,
+			txtCentroRegional.getText(),
+			((RadioButton)genero.getSelectedToggle()).getText(),
+			txtCuenta.getText(),
+			Double.parseDouble(txtPromedio.getText())
 		);
+		alumnos.add(alumno);
+		
+		guardarEnArchivo();	
 		limpiar();
+	}
+	
+	public void guardarEnArchivo() {
+		try {
+			ObjectOutputStream flujoSalida = new ObjectOutputStream(new FileOutputStream(NOMBRE_ARCHIVO));
+			for (int i=0;i<alumnos.size();i++)
+				flujoSalida.writeObject(alumnos.get(i));
+			
+			flujoSalida.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	@FXML
@@ -180,6 +219,8 @@ public class VistaController implements Initializable{
 				Double.parseDouble(txtPromedio.getText())
 			)
 		);
+		
+		guardarEnArchivo();
 		limpiar();
 	}
 	
@@ -193,6 +234,7 @@ public class VistaController implements Initializable{
 		Optional<ButtonType> resultado = mensaje.showAndWait();
 		if (resultado.get() == ButtonType.OK) {
 			alumnos.remove(lstAlumnos.getSelectionModel().getSelectedIndex());
+			guardarEnArchivo();
 			limpiar();
 		}
 	}
